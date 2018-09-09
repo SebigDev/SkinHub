@@ -10,42 +10,42 @@ namespace SkinHubApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PostController : Controller
+    public class CommentController : Controller
     {
          #region Fields
-        private readonly IPostServices _postServices;
+        private readonly ICommentServices _CommentServices;
         #endregion
 
         #region Ctor
         
-        public PostController(IPostServices postServices)
+        public CommentController(ICommentServices CommentServices)
         {
-            _postServices = postServices;
+            _CommentServices = CommentServices;
         }
         #endregion
 
         #region ActionMethods
 
-        #region POST and PUT
+        #region Comment and PUT
 
         [HttpPost]
         [Route("[action]")]
-        [Produces(typeof(PostDto))]
+        [Produces(typeof(CommentDto))]
         [ProducesResponseType((int)HttpStatusCode.Created)]
-        public async Task<IActionResult> Create([FromBody] CreatePostDto model)
+        public async Task<IActionResult> Create([FromBody] CreateCommentDto model)
         {
             try
             {
                 if(ModelState.IsValid)
                 {
-                    var checkName = await _postServices.IsNameExist(model.Title, model.ProductListTypeID);
+                    var checkName = await _CommentServices.IsNameExist(model.CommentBody, model.PostID);
                     if(checkName == true)
                     {
                         return BadRequest("Sorry!, This name already exists on our database. Choose another name");
                     }
 
-                    var createPost = await _postServices.CreatePost(model);
-                    return StatusCode(201, $"{model.Title} created Successfully.");
+                    var createComment = await _CommentServices.CreateComment(model);
+                    return StatusCode(201, $"Comment created Successfully.");
                 }
                 return BadRequest("Sorry! Your task cannot be completed");
             }
@@ -57,19 +57,19 @@ namespace SkinHubApp.Controllers
         
         [HttpPut]
         [Route("[action]")]
-        [Produces(typeof(PostDto))]
+        [Produces(typeof(CommentDto))]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Update([FromBody] PostDto model)
+        public async Task<IActionResult> Update([FromBody] CommentDto model)
         {
             try
             {
                 if(ModelState.IsValid)
                 {
-                    var update = await _postServices.GetPostByID(model.ID);
+                    var update = await _CommentServices.GetCommentByID(model.ID);
                     if(update != null)
                     {
-                        await _postServices.UpdatePost(model);
-                        return Ok($"{model.Title} updated Successfully");
+                        await _CommentServices.UpdateComment(model);
+                        return Ok($"Comment updated Successfully");
                     }
                 }
                 return BadRequest("Update failed, Please try again");
@@ -86,16 +86,16 @@ namespace SkinHubApp.Controllers
         #region GET
         [HttpGet]
         [Route("[action]")]
-        [Produces(typeof(IEnumerable<PostDto>))]
+        [Produces(typeof(IEnumerable<CommentDto>))]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetAllPosts()
+        public async Task<IActionResult> GetAllComments()
         {
             try
             {
-                var allPosts = await _postServices.GetAllPosts();
-                if(allPosts != null)
+                var allComments = await _CommentServices.GetAllComments();
+                if(allComments != null)
                 {
-                    return Ok(allPosts);
+                    return Ok(allComments);
                 }
                 return BadRequest("Sorry!, No Data was fetched, Please try again");
 
@@ -108,16 +108,16 @@ namespace SkinHubApp.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        [Produces(typeof(IEnumerable<PostDto>))]
+        [Produces(typeof(IEnumerable<CommentDto>))]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetPostByProductListTypeID(int Id)
+        public async Task<IActionResult> GetCommentByPostID(long Id)
         {
             try
             {
-                var allPosts = await _postServices.GetPostByProductListTypeID(Id);
-                if(allPosts != null)
+                var allComments = await _CommentServices.GetCommentByPostID(Id);
+                if(allComments != null)
                 {
-                    return Ok(allPosts);
+                    return Ok(allComments);
                 }
                 return BadRequest("Sorry!, No Data was fetched, Please try again");
 
@@ -132,16 +132,16 @@ namespace SkinHubApp.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        [Produces(typeof(IEnumerable<PostDto>))]
+        [Produces(typeof(IEnumerable<CommentDto>))]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetAllPostsByAuthor(string author)
+        public async Task<IActionResult> GetAllCommentByAuthor(string author)
         {
             try
             {
-                var allPosts = await _postServices.GetAllPostsByAuthor(author);
-                if(allPosts != null)
+                var allComments = await _CommentServices.GetAllCommentByAuthor(author);
+                if(allComments != null)
                 {
-                    return Ok(allPosts);
+                    return Ok(allComments);
                 }
                 return BadRequest("Sorry!, No Data was fetched, Please try again");
 
@@ -155,13 +155,13 @@ namespace SkinHubApp.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        [Produces(typeof(PostDto))]
+        [Produces(typeof(CommentDto))]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetPostByID(long Id)
+        public async Task<IActionResult> GetCommentByID(long Id)
         {
             try
             {
-                var color = await _postServices.GetPostByID(Id);
+                var color = await _CommentServices.GetCommentByID(Id);
                 if(color != null)
                 {
                     return Ok(color);
@@ -179,5 +179,4 @@ namespace SkinHubApp.Controllers
 
         #endregion
     }   
-        
 }

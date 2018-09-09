@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SkinHubApp.Data;
 using SkinHubApp.DTOs;
+using SkinHubApp.Models;
 
 namespace SkinHubApp.Services
 {
@@ -31,12 +32,13 @@ namespace SkinHubApp.Services
         {
            if(model != null)
            {
-                var createPost = new PostDto
+                var createPost = new Post
                 {
                     Title = model.Title,
                     Body = model.Body,
                     CreatedOn = DateTime.UtcNow,
                     Author = "Annonymous",
+                    ProductListTypeID = model.ProductListTypeID
                 };
                 await _skinHubAppDbContext.AddAsync(createPost);
                 await _skinHubAppDbContext.SaveChangesAsync();
@@ -122,27 +124,6 @@ namespace SkinHubApp.Services
         public async Task<IEnumerable<PostDto>> GetPostByProductListTypeID(int id)
         {
             var allPost = await _skinHubAppDbContext.Post.Include(c => c.ProductListType).Where(c => c.ProductListTypeID == id).ToListAsync();
-            if(allPost.Count() > 0)
-            {
-                var model = new List<PostDto>();
-                model.AddRange(allPost.OrderBy(x => x.CreatedOn).Select(m => new PostDto()
-                {
-                    ID = m.ID,
-                    Title = m.Title,
-                    Body = m.Body,
-                    CreatedOn = m.CreatedOn,
-                    Author = m.Author,
-                    ProductListTypeID = m.ProductListTypeID,
-                    ProductListType = m.ProductListType.Name,
-                }));
-                return model;
-            }
-            return null;
-        }
-
-        public async Task<IEnumerable<PostDto>> GetPostsByDateCreated(DateTime date)
-        {
-            var allPost = await _skinHubAppDbContext.Post.Include(c => c.ProductListType).Where(c => c.CreatedOn == date).ToListAsync();
             if(allPost.Count() > 0)
             {
                 var model = new List<PostDto>();

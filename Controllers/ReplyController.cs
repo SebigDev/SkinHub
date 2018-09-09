@@ -10,42 +10,42 @@ namespace SkinHubApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PostController : Controller
+    public class ReplyController : Controller
     {
          #region Fields
-        private readonly IPostServices _postServices;
+        private readonly IReplyServices _replyServices;
         #endregion
 
         #region Ctor
         
-        public PostController(IPostServices postServices)
+        public ReplyController(IReplyServices replyServices)
         {
-            _postServices = postServices;
+            _replyServices = replyServices;
         }
         #endregion
 
         #region ActionMethods
 
-        #region POST and PUT
+        #region Reply and PUT
 
         [HttpPost]
         [Route("[action]")]
-        [Produces(typeof(PostDto))]
+        [Produces(typeof(ReplyDto))]
         [ProducesResponseType((int)HttpStatusCode.Created)]
-        public async Task<IActionResult> Create([FromBody] CreatePostDto model)
+        public async Task<IActionResult> Create([FromBody] CreateReplyDto model)
         {
             try
             {
                 if(ModelState.IsValid)
                 {
-                    var checkName = await _postServices.IsNameExist(model.Title, model.ProductListTypeID);
+                    var checkName = await _replyServices.IsNameExist(model.ReplyBody, model.CommentID);
                     if(checkName == true)
                     {
                         return BadRequest("Sorry!, This name already exists on our database. Choose another name");
                     }
 
-                    var createPost = await _postServices.CreatePost(model);
-                    return StatusCode(201, $"{model.Title} created Successfully.");
+                    var createReply = await _replyServices.CreateReply(model);
+                    return StatusCode(201, $"Reply created Successfully.");
                 }
                 return BadRequest("Sorry! Your task cannot be completed");
             }
@@ -57,19 +57,19 @@ namespace SkinHubApp.Controllers
         
         [HttpPut]
         [Route("[action]")]
-        [Produces(typeof(PostDto))]
+        [Produces(typeof(ReplyDto))]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Update([FromBody] PostDto model)
+        public async Task<IActionResult> Update([FromBody] ReplyDto model)
         {
             try
             {
                 if(ModelState.IsValid)
                 {
-                    var update = await _postServices.GetPostByID(model.ID);
+                    var update = await _replyServices.GetReplyByID(model.ID);
                     if(update != null)
                     {
-                        await _postServices.UpdatePost(model);
-                        return Ok($"{model.Title} updated Successfully");
+                        await _replyServices.UpdateReply(model);
+                        return Ok($"Reply updated Successfully");
                     }
                 }
                 return BadRequest("Update failed, Please try again");
@@ -86,16 +86,16 @@ namespace SkinHubApp.Controllers
         #region GET
         [HttpGet]
         [Route("[action]")]
-        [Produces(typeof(IEnumerable<PostDto>))]
+        [Produces(typeof(IEnumerable<ReplyDto>))]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetAllPosts()
+        public async Task<IActionResult> GetAllReplies()
         {
             try
             {
-                var allPosts = await _postServices.GetAllPosts();
-                if(allPosts != null)
+                var allReplys = await _replyServices.GetAllReplies();
+                if(allReplys != null)
                 {
-                    return Ok(allPosts);
+                    return Ok(allReplys);
                 }
                 return BadRequest("Sorry!, No Data was fetched, Please try again");
 
@@ -108,16 +108,16 @@ namespace SkinHubApp.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        [Produces(typeof(IEnumerable<PostDto>))]
+        [Produces(typeof(IEnumerable<ReplyDto>))]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetPostByProductListTypeID(int Id)
+        public async Task<IActionResult> GetReplyByCommentID(long Id)
         {
             try
             {
-                var allPosts = await _postServices.GetPostByProductListTypeID(Id);
-                if(allPosts != null)
+                var allReplys = await _replyServices.GetReplyByCommentID(Id);
+                if(allReplys != null)
                 {
-                    return Ok(allPosts);
+                    return Ok(allReplys);
                 }
                 return BadRequest("Sorry!, No Data was fetched, Please try again");
 
@@ -132,16 +132,16 @@ namespace SkinHubApp.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        [Produces(typeof(IEnumerable<PostDto>))]
+        [Produces(typeof(IEnumerable<ReplyDto>))]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetAllPostsByAuthor(string author)
+        public async Task<IActionResult> GetAllRepliesByAuthor(string author)
         {
             try
             {
-                var allPosts = await _postServices.GetAllPostsByAuthor(author);
-                if(allPosts != null)
+                var allReplys = await _replyServices.GetAllRepliesByAuthor(author);
+                if(allReplys != null)
                 {
-                    return Ok(allPosts);
+                    return Ok(allReplys);
                 }
                 return BadRequest("Sorry!, No Data was fetched, Please try again");
 
@@ -155,16 +155,16 @@ namespace SkinHubApp.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        [Produces(typeof(PostDto))]
+        [Produces(typeof(ReplyDto))]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetPostByID(long Id)
+        public async Task<IActionResult> GetReplyByID(long Id)
         {
             try
             {
-                var color = await _postServices.GetPostByID(Id);
-                if(color != null)
+                var reply = await _replyServices.GetReplyByID(Id);
+                if(reply != null)
                 {
-                    return Ok(color);
+                    return Ok(reply);
                 }
                 return BadRequest($"Sorry!, No Data with Id: {Id} found, Please try again");
 
@@ -179,5 +179,5 @@ namespace SkinHubApp.Controllers
 
         #endregion
     }   
-        
+    
 }

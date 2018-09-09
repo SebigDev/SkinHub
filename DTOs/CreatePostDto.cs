@@ -1,3 +1,5 @@
+using System;
+
 namespace SkinHubApp.DTOs
 {
     public class CreatePostDto
@@ -8,6 +10,9 @@ namespace SkinHubApp.DTOs
         public string Body {get; set;}
 
         public int ProductListTypeID {get; set;}
+
+
+        public DateTime CreatedOn {get; set;} = DateTime.UtcNow;
 
 
     }

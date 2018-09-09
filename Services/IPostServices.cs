@@ -17,8 +17,6 @@ namespace SkinHubApp.Services
 
         Task<IEnumerable<PostDto>> GetPostByProductListTypeID(int id);
 
-        Task<IEnumerable<PostDto>> GetPostsByDateCreated(DateTime date);
-
         Task<IEnumerable<PostDto>> GetAllPostsByAuthor(string author);
 
         Task<bool> DeletePost(long Id);
