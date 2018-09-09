@@ -38,6 +38,7 @@ namespace SkinHubApp
             services.AddTransient<IColorTypeServices, ColorTypeServices>();
             services.AddTransient<IProductTypeServices, ProductTypeServices>();
             services.AddTransient<IProductListTypeServices, ProductListTypeServices>();
+            services.AddTransient<IPostServices, PostServices>();
 
 
              services.AddSwaggerGen(c =>

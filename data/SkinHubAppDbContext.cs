@@ -15,5 +15,13 @@ namespace SkinHubApp.Data
         public DbSet<ProductType> ProductType {get; set;}
 
         public DbSet<ProductListType> ProductListType {get; set;}
+
+
+        public DbSet<Post> Post {get; set;}
+
+        public DbSet<Comment> Comment {get; set;}
+
+        public DbSet<Reply> Reply {get; set;}
+
     }
 }

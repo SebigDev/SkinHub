@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SkinHubApp.Data;
 
 namespace SkinHubApp.Migrations
 {
     [DbContext(typeof(SkinHubAppDbContext))]
-    partial class SkinHubAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180909105431_PostCommentReplyAdded")]
+    partial class PostCommentReplyAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,8 +43,6 @@ namespace SkinHubApp.Migrations
                     b.Property<long>("ID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Author");
 
                     b.Property<string>("CommentBody");
 
