@@ -23,5 +23,8 @@ namespace SkinHubApp.Data
 
         public DbSet<Reply> Reply {get; set;}
 
+
+        public DbSet<Member> Member {get; set;}
+
     }
 }
