@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;
@@ -29,7 +30,7 @@ namespace SkinHubApp.Controllers
         [Produces(typeof(MemberDto))]
         [ProducesResponseType((int)HttpStatusCode.Created)]
          public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
-      {
+         {
           registerDto.Username = registerDto.Username.ToLower();
           try
           {
@@ -40,28 +41,27 @@ namespace SkinHubApp.Controllers
  
                 if(await _authServices.MemberExists(registerDto.Username, registerDto.EmailAddress))
                 {
-                    return BadRequest("Membername or Email Address exists, Choose anothe name");
+                    return BadRequest("Username or Email Address exists, Choose anothe name");
                 }
                 var memberToCreate = new Member
                 {
                     Username = registerDto.Username,
                     EmailAddress = registerDto.EmailAddress,
-                    Color = registerDto.Color,
+                    ColorTypeID = registerDto.ColorTypeID,
                     Gender = registerDto.Gender,
                     Firstname = registerDto.Firstname,
                     Middlename = registerDto.Middlename,
                     Lastname = registerDto.Lastname,
                     DateOfBirth = registerDto.DateOfBirth,
 
-
                 };
                 var createMember = await _authServices.Register(memberToCreate, registerDto.Password);
                 return StatusCode(201, $" Hello {registerDto.Username}, Your Registration was Successful.");
 
           }
-          catch (Exception)
+          catch (Exception ex)
           {
-             return BadRequest("Error!- Member cannot be created, Contact Administrator");
+             return BadRequest($"{ex.Message}, Error!- Member cannot be created, Contact Administrator");
           }
       }
 
@@ -102,10 +102,10 @@ namespace SkinHubApp.Controllers
           return StatusCode(400, "Error Processing this request, please contact the Administration");
         }
     }
-        [HttpGet]
-        [Route("[action]")]
-        [Produces(typeof(MemberDto))]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
+    [HttpGet]
+    [Route("[action]")]
+    [Produces(typeof(MemberDto))]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
     public async Task<IActionResult> GetMemberByID(long ID)
     {
        try
@@ -143,6 +143,30 @@ namespace SkinHubApp.Controllers
           return BadRequest("Error!  Request cannot be completed, Please contact administrator");
        }
     }
+
+
+    [HttpGet]
+    [Route("[action]")]
+    [Produces(typeof(IEnumerable<MemberDto>))]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task<IActionResult> GetMemberByColorID(int id)
+    {
+       try
+       {
+            var MemberByMembername = await _authServices.GetMemberByColorID(id);
+            if(MemberByMembername != null)
+            {
+                return Ok(MemberByMembername);
+            }
+            return NotFound($"Member with Color ID: {id} not found");
+       }
+       catch (Exception)
+       {
+          return BadRequest("Error!  Request cannot be completed, Please contact administrator");
+       }
     }
-    
+
+
+
+    } 
 }

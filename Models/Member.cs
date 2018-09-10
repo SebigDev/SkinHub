@@ -21,11 +21,14 @@ namespace SkinHubApp.Models
 
         public string  Lastname {get; set;}
 
-        public string Color {get; set;}
 
         public GenderEnum Gender {get; set;}
 
         public DateTime DateOfBirth {get; set;}
+
+        public int ColorTypeID {get; set;}
+
+        public virtual ColorType Color {get; set;}
 
         public int Age {
 

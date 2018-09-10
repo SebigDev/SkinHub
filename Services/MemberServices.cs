@@ -1,34 +1,16 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SkinHubApp.Data;
+using SkinHubApp.DTOs;
 using SkinHubApp.Models;
 
 namespace SkinHubApp.Services
 {
     public class MemberServices : IMemberServices
     {
-         public async Task<Member> GetMemberByID(long ID)
-        {
-           var memberById = await _skinHubAppDbContext.Member.FirstOrDefaultAsync(x=>x.ID == ID);
-           if(memberById != null)
-           {
-               return memberById;
-           }
-           return null;
-        }
-
-        public async Task<Member> GetMemberByUsername(string username)
-        {
-            var memberByUsername = await _skinHubAppDbContext.Member.Where(x=>x.Username == username).FirstOrDefaultAsync();
-            if(memberByUsername != null)
-            {
-                return memberByUsername;
-            }
-            return null;
-        }
-        
         private readonly SkinHubAppDbContext _skinHubAppDbContext;
         public MemberServices(SkinHubAppDbContext  skinHubAppDbContext)
         {
@@ -108,6 +90,85 @@ namespace SkinHubApp.Services
             }
             return false;
         }
+
+
+
+            //Get Methods
+         public async Task<MemberDto> GetMemberByID(long ID)
+        {
+           var memberById = await _skinHubAppDbContext.Member.Include(x =>x.Color).Where(x =>x.ID == ID).FirstOrDefaultAsync();
+           if(memberById != null)
+           {
+               var model = new MemberDto
+               {
+                   ID = memberById.ID,
+                    Username = memberById.Username,
+                    EmailAddress = memberById.EmailAddress,
+                    ColorTypeID = memberById.ColorTypeID,
+                    Color = memberById.Color.Name,
+                    Gender = memberById.Gender,
+                    Firstname = memberById.Firstname,
+                    Middlename = memberById.Middlename,
+                    Lastname = memberById.Lastname,
+                    DateOfBirth = memberById.DateOfBirth,
+                    Age = memberById.Age
+               };
+               return model;
+           }
+           return null;
+        }
+
+        public async Task<MemberDto> GetMemberByUsername(string username)
+        {
+            var memberByUsername = await _skinHubAppDbContext.Member.Include(x =>x.Color).Where(x=>x.Username == username).FirstOrDefaultAsync();
+            if(memberByUsername != null)
+            {
+                var model = new MemberDto
+               {
+                   ID = memberByUsername.ID,
+                    Username = memberByUsername.Username,
+                    EmailAddress = memberByUsername.EmailAddress,
+                    ColorTypeID = memberByUsername.ColorTypeID,
+                    Color = memberByUsername.Color.Name,
+                    Gender = memberByUsername.Gender,
+                    Firstname = memberByUsername.Firstname,
+                    Middlename = memberByUsername.Middlename,
+                    Lastname = memberByUsername.Lastname,
+                    DateOfBirth = memberByUsername.DateOfBirth,
+                    Age = memberByUsername.Age
+               };
+               return model;
+            }
+            return null;
+        }
+
+         public async Task<IEnumerable<MemberDto>> GetMemberByColorID(int id)
+        {
+            var memberByUsername = await _skinHubAppDbContext.Member.Include(x =>x.Color).Where(x=>x.ColorTypeID == id).ToListAsync();
+            if(memberByUsername != null)
+            {
+                var model = new List<MemberDto>();
+                model.AddRange(memberByUsername.OrderBy(c =>c.ID).Select(m => new MemberDto()
+               {
+                    ID = m.ID,
+                    Username = m.Username,
+                    EmailAddress = m.EmailAddress,
+                    ColorTypeID = m.Color.ID,
+                    Color = m.Color.Name,
+                    Gender = m.Gender,
+                    Firstname = m.Firstname,
+                    Middlename = m.Middlename,
+                    Lastname = m.Lastname,
+                    DateOfBirth = m.DateOfBirth,
+                    Age = m.Age
+               }));
+               return model;
+            }
+            return null;
+        }
+
+
+
 //DISPOSING ALL INSTANCES CREATED 
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
@@ -143,7 +204,6 @@ namespace SkinHubApp.Services
             // GC.SuppressFinalize(this);
         }
 
-      
         #endregion
     }
 }
