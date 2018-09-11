@@ -27,7 +27,12 @@ namespace SkinHubApp.Controllers
         #region ActionMethods
 
         #region Reply and PUT
-
+        
+        /// <summary>
+        /// creates a reply
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("[action]")]
         [Produces(typeof(ReplyDto))]
@@ -55,6 +60,11 @@ namespace SkinHubApp.Controllers
             }
         }
         
+        /// <summary>
+        /// Updates a reply
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPut]
         [Route("[action]")]
         [Produces(typeof(ReplyDto))]
@@ -84,6 +94,10 @@ namespace SkinHubApp.Controllers
         #endregion
 
         #region GET
+        /// <summary>
+        /// Gets all replies
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("[action]")]
         [Produces(typeof(IEnumerable<ReplyDto>))]
@@ -106,6 +120,11 @@ namespace SkinHubApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets a reply by comment identity
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("[action]")]
         [Produces(typeof(IEnumerable<ReplyDto>))]
@@ -129,7 +148,11 @@ namespace SkinHubApp.Controllers
         }
 
         
-
+        /// <summary>
+        /// Gets all reply by author
+        /// </summary>
+        /// <param name="author"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("[action]")]
         [Produces(typeof(IEnumerable<ReplyDto>))]
@@ -153,6 +176,11 @@ namespace SkinHubApp.Controllers
         }
 
 
+        /// <summary>
+        /// Gets reply by reply identity
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("[action]")]
         [Produces(typeof(ReplyDto))]

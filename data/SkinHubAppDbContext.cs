@@ -3,8 +3,12 @@ using SkinHubApp.Models;
 
 namespace SkinHubApp.Data
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class SkinHubAppDbContext : DbContext
     {
+    
         public SkinHubAppDbContext(DbContextOptions<SkinHubAppDbContext> options): base(options)
         { }
 

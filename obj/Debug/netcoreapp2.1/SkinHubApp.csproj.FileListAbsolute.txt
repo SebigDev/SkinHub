@@ -12,3 +12,5 @@ C:\Users\Sebig\source\repos\SkinHub\SkinHubApp\obj\Debug\netcoreapp2.1\SkinHubAp
 C:\Users\Sebig\source\repos\SkinHub\SkinHubApp\obj\Debug\netcoreapp2.1\SkinHubApp.RazorTargetAssemblyInfo.cache
 C:\Users\Sebig\source\repos\SkinHub\SkinHubApp\obj\Debug\netcoreapp2.1\SkinHubApp.dll
 C:\Users\Sebig\source\repos\SkinHub\SkinHubApp\obj\Debug\netcoreapp2.1\SkinHubApp.pdb
+C:\Users\Sebig\source\repos\SkinHub\SkinHubApp\bin\Debug\netcoreapp2.1\SkinHubApp.xml
+C:\Users\Sebig\source\repos\SkinHub\SkinHubApp\obj\Debug\netcoreapp2.1\SkinHubApp.xml

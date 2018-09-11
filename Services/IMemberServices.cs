@@ -15,5 +15,6 @@ namespace SkinHubApp.Services
         Task<MemberDto> GetMemberByUsername(string username);
 
         Task<IEnumerable<MemberDto>> GetMemberByColorID(int id);
+
     }
 }

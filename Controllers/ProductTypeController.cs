@@ -30,6 +30,11 @@ namespace SkinHubApp.Controllers
 
         #region POST and PUT
 
+        /// <summary>
+        /// Creates a new Product
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("[action]")]
         [Produces(typeof(ProductTypeDto))]
@@ -57,6 +62,11 @@ namespace SkinHubApp.Controllers
             }
         }
         
+        /// <summary>
+        /// Updates a product
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPut]
         [Route("[action]")]
         [Produces(typeof(ProductTypeDto))]
@@ -86,6 +96,11 @@ namespace SkinHubApp.Controllers
         #endregion
 
         #region GET
+
+        /// <summary>
+        /// Gets all products
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("[action]")]
         [Produces(typeof(IEnumerable<ProductTypeDto>))]
@@ -107,7 +122,12 @@ namespace SkinHubApp.Controllers
                 return BadRequest($"{ex.Message}, Error! Your task failed, Please try again");
             }
         }
-
+        
+        /// <summary>
+        /// Gets all products by color identity
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("[action]")]
         [Produces(typeof(IEnumerable<ProductTypeDto>))]
@@ -130,7 +150,11 @@ namespace SkinHubApp.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Get product by product identity
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("[action]")]
         [Produces(typeof(ProductTypeDto))]

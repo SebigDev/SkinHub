@@ -29,6 +29,11 @@ namespace SkinHubApp.Controllers
 
         #region POST and PUT
 
+        /// <summary>
+        /// Creates new gender
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("[action]")]
         [Produces(typeof(GenderTypeDto))]
@@ -56,6 +61,11 @@ namespace SkinHubApp.Controllers
             }
         }
         
+        /// <summary>
+        /// Updates a gender
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPut]
         [Route("[action]")]
         [Produces(typeof(GenderTypeDto))]
@@ -84,6 +94,10 @@ namespace SkinHubApp.Controllers
 
         #endregion
 
+        /// <summary>
+        /// Gets all the gender
+        /// </summary>
+        /// <returns></returns>
         #region GET
         [HttpGet]
         [Route("[action]")]
@@ -106,6 +120,12 @@ namespace SkinHubApp.Controllers
                 return BadRequest($"{ex.Message}, Error! Your task failed, Please try again");
             }
         }
+
+        /// <summary>
+        /// Gets a gender by gender Identity
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
 
         [HttpGet]
         [Route("[action]")]

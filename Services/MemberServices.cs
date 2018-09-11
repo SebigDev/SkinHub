@@ -80,6 +80,9 @@ namespace SkinHubApp.Services
            }
         }
 
+
+        //password Change
+
 //CHECKING IF Member EXIST ALREADY
         public async Task<bool> MemberExists(string username, string emailAddress)
         {
@@ -90,7 +93,6 @@ namespace SkinHubApp.Services
             }
             return false;
         }
-
 
 
             //Get Methods

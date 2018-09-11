@@ -27,7 +27,12 @@ namespace SkinHubApp.Controllers
         #region ActionMethods
 
         #region POST and PUT
-
+        
+        /// <summary>
+        /// Creates a new productlist
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("[action]")]
         [Produces(typeof(ProductListTypeDto))]
@@ -55,6 +60,11 @@ namespace SkinHubApp.Controllers
             }
         }
         
+        /// <summary>
+        /// Updates a productlist
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPut]
         [Route("[action]")]
         [Produces(typeof(ProductListTypeDto))]
@@ -84,6 +94,10 @@ namespace SkinHubApp.Controllers
         #endregion
 
         #region GET
+        /// <summary>
+        /// Gets all productlist
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("[action]")]
         [Produces(typeof(IEnumerable<ProductListTypeDto>))]
@@ -106,6 +120,11 @@ namespace SkinHubApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets all productlist by product identity
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("[action]")]
         [Produces(typeof(IEnumerable<ProductListTypeDto>))]
@@ -128,7 +147,11 @@ namespace SkinHubApp.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Gets productlist by productlist identity
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("[action]")]
         [Produces(typeof(ProductListTypeDto))]

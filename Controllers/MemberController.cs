@@ -13,6 +13,7 @@ using SkinHubApp.Services;
 
 namespace SkinHubApp.Controllers
 {
+   
     [Route("api/[controller]")]
     [ApiController]
     public class MemberController : Controller
@@ -20,15 +21,21 @@ namespace SkinHubApp.Controllers
         private readonly IMemberServices _authServices;
 
       //Constructor for Dependency Injection
+    
       public MemberController(IMemberServices authServices)
       {
           _authServices = authServices;
       }
 
+/// <summary>
+/// Creates a New Member
+/// </summary>
+/// <param name="registerDto"></param>
+/// <returns>Returns the member created </returns>
         [HttpPost]
         [Route("[action]")]
         [Produces(typeof(MemberDto))]
-        [ProducesResponseType((int)HttpStatusCode.Created)]
+        [ProducesResponseType(201)]
          public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
          {
           registerDto.Username = registerDto.Username.ToLower();
@@ -65,10 +72,16 @@ namespace SkinHubApp.Controllers
           }
       }
 
+
+/// <summary>
+/// Logs in a Member
+/// </summary>
+/// <param name="loginDto"></param>
+/// <returns>returns a token  for the member</returns>
     [HttpPost]
     [Route("[action]")]
     [Produces(typeof(MemberDto))]
-    [ProducesResponseType((int)HttpStatusCode.OK)]
+    [ProducesResponseType(200)]
     public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
     {
         try
@@ -102,10 +115,16 @@ namespace SkinHubApp.Controllers
           return StatusCode(400, "Error Processing this request, please contact the Administration");
         }
     }
+
+    /// <summary>
+    /// Retrieves Member by Member Identity
+    /// </summary>
+    /// <param name="ID"></param>
+    /// <returns>returns a member by Id</returns>
     [HttpGet]
     [Route("[action]")]
     [Produces(typeof(MemberDto))]
-    [ProducesResponseType((int)HttpStatusCode.OK)]
+    [ProducesResponseType(200)]
     public async Task<IActionResult> GetMemberByID(long ID)
     {
        try
@@ -123,11 +142,17 @@ namespace SkinHubApp.Controllers
        }
     }
 
+
+/// <summary>
+/// Retrieves Member by Member's Username
+/// </summary>
+/// <param name="username"></param>
+/// <returns>returns a member by username</returns>
     [HttpGet]
     [Route("[action]")]
     [Produces(typeof(MemberDto))]
-    [ProducesResponseType((int)HttpStatusCode.OK)]
-    public async Task<IActionResult> GetMemberByMembername(string username)
+    [ProducesResponseType(200)]
+    public async Task<IActionResult> GetMemberByUsername(string username)
     {
        try
        {
@@ -144,11 +169,15 @@ namespace SkinHubApp.Controllers
        }
     }
 
-
+/// <summary>
+/// Retrieves Member By Member Color Identity
+/// </summary>
+/// <param name="id"></param>
+/// <returns>returns a member by color Id</returns>
     [HttpGet]
     [Route("[action]")]
     [Produces(typeof(IEnumerable<MemberDto>))]
-    [ProducesResponseType((int)HttpStatusCode.OK)]
+    [ProducesResponseType(200)]
     public async Task<IActionResult> GetMemberByColorID(int id)
     {
        try
@@ -165,8 +194,6 @@ namespace SkinHubApp.Controllers
           return BadRequest("Error!  Request cannot be completed, Please contact administrator");
        }
     }
-
-
 
     } 
 }
