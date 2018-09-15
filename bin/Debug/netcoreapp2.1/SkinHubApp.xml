@@ -1,0 +1,299 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SkinHubApp</name>
+    </assembly>
+    <members>
+        <member name="M:SkinHubApp.Controllers.ColorTypeController.Create(SkinHubApp.DTOs.CreateColorTypeDto)">
+            <summary>
+            Create a new color
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.ColorTypeController.Update(SkinHubApp.DTOs.ColorTypeDto)">
+            <summary>
+            Updates a color
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.ColorTypeController.GetAllColorTypes">
+            <summary>
+            Gets all colors
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.ColorTypeController.GetAllColorTypesByGenderID(System.Int32)">
+            <summary>
+            Gets color by gender identity
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.ColorTypeController.GetColorTypeByID(System.Int32)">
+            <summary>
+            Gets color by color idenity
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.CommentController.Create(SkinHubApp.DTOs.CreateCommentDto)">
+            <summary>
+            Creates a new comment
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.CommentController.Update(SkinHubApp.DTOs.CommentDto)">
+            <summary>
+            updates a comment
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.CommentController.GetAllComments">
+            <summary>
+            Gets all comments
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.CommentController.GetCommentByPostID(System.Int64)">
+            <summary>
+            Gets all comments by Post Identity
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.CommentController.GetAllCommentByAuthor(System.String)">
+            <summary>
+            Gets all comment by author
+            </summary>
+            <param name="author"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.CommentController.GetCommentByID(System.Int64)">
+            <summary>
+            Gets comment by comment Identity
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.GenderTypeController.Create(SkinHubApp.DTOs.CreateGenderTypeDto)">
+            <summary>
+            Creates new gender
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.GenderTypeController.Update(SkinHubApp.DTOs.GenderTypeDto)">
+            <summary>
+            Updates a gender
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.GenderTypeController.GetAllGenderTypes">
+            <summary>
+            Gets all the gender
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.GenderTypeController.GetGenderTypeByID(System.Int32)">
+            <summary>
+            Gets a gender by gender Identity
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.MemberController.Register(SkinHubApp.DTOs.RegisterDto)">
+            <summary>
+            Creates a New Member
+            </summary>
+            <param name="registerDto"></param>
+            <returns>Returns the member created </returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.MemberController.Login(SkinHubApp.DTOs.LoginDto)">
+            <summary>
+            Logs in a Member
+            </summary>
+            <param name="loginDto"></param>
+            <returns>returns a token  for the member</returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.MemberController.GetMemberByID(System.Int64)">
+            <summary>
+            Retrieves Member by Member Identity
+            </summary>
+            <param name="ID"></param>
+            <returns>returns a member by Id</returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.MemberController.GetMemberByUsername(System.String)">
+            <summary>
+            Retrieves Member by Member's Username
+            </summary>
+            <param name="username"></param>
+            <returns>returns a member by username</returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.MemberController.GetMemberByColorID(System.Int32)">
+            <summary>
+            Retrieves Member By Member Color Identity
+            </summary>
+            <param name="id"></param>
+            <returns>returns a member by color Id</returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.PostController.Create(SkinHubApp.DTOs.CreatePostDto)">
+            <summary>
+            Creates a Post
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.PostController.Update(SkinHubApp.DTOs.PostDto)">
+            <summary>
+            Updates a post
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.PostController.GetAllPosts">
+            <summary>
+            Gets all posts
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.PostController.GetPostByProductListTypeID(System.Int32)">
+            <summary>
+            Gets all posts by productlist Identity
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.PostController.GetAllPostsByAuthor(System.String)">
+            <summary>
+            Gets all post by an author
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.PostController.GetPostByID(System.Int64)">
+            <summary>
+            Gets a post by post identity
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.ProductListTypeController.Create(SkinHubApp.DTOs.CreateProductListTypeDto)">
+            <summary>
+            Creates a new productlist
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.ProductListTypeController.Update(SkinHubApp.DTOs.ProductListTypeDto)">
+            <summary>
+            Updates a productlist
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.ProductListTypeController.GetAllProductListTypes">
+            <summary>
+            Gets all productlist
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.ProductListTypeController.GetProductListTypesByProductTypeID(System.Int32)">
+            <summary>
+            Gets all productlist by product identity
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.ProductListTypeController.GetProductListTypeByID(System.Int32)">
+            <summary>
+            Gets productlist by productlist identity
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.ProductTypeController.Create(SkinHubApp.DTOs.CreateProductTypeDto)">
+            <summary>
+            Creates a new Product
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.ProductTypeController.Update(SkinHubApp.DTOs.ProductTypeDto)">
+            <summary>
+            Updates a product
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.ProductTypeController.GetAllProductTypes">
+            <summary>
+            Gets all products
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.ProductTypeController.GetAllProductTypesByColorID(System.Int32)">
+            <summary>
+            Gets all products by color identity
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.ProductTypeController.GetProductTypeByID(System.Int32)">
+            <summary>
+            Get product by product identity
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.ReplyController.Create(SkinHubApp.DTOs.CreateReplyDto)">
+            <summary>
+            creates a reply
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.ReplyController.Update(SkinHubApp.DTOs.ReplyDto)">
+            <summary>
+            Updates a reply
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.ReplyController.GetAllReplies">
+            <summary>
+            Gets all replies
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.ReplyController.GetReplyByCommentID(System.Int64)">
+            <summary>
+            Gets a reply by comment identity
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.ReplyController.GetAllRepliesByAuthor(System.String)">
+            <summary>
+            Gets all reply by author
+            </summary>
+            <param name="author"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.ReplyController.GetReplyByID(System.Int64)">
+            <summary>
+            Gets reply by reply identity
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SkinHubApp.Data.SkinHubAppDbContext">
+            <summary>
+            
+            </summary>
+        </member>
+    </members>
+</doc>

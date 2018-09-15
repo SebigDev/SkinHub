@@ -26,8 +26,13 @@ namespace SkinHubApp.Controllers
 
         #region ActionMethods
 
-        #region Comment and PUT
+        #region Post and PUT
 
+        /// <summary>
+        /// Creates a new comment
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("[action]")]
         [Produces(typeof(CommentDto))]
@@ -55,6 +60,11 @@ namespace SkinHubApp.Controllers
             }
         }
         
+        /// <summary>
+        /// updates a comment
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPut]
         [Route("[action]")]
         [Produces(typeof(CommentDto))]
@@ -84,6 +94,11 @@ namespace SkinHubApp.Controllers
         #endregion
 
         #region GET
+
+        /// <summary>
+        /// Gets all comments
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("[action]")]
         [Produces(typeof(IEnumerable<CommentDto>))]
@@ -106,6 +121,11 @@ namespace SkinHubApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets all comments by Post Identity
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("[action]")]
         [Produces(typeof(IEnumerable<CommentDto>))]
@@ -128,7 +148,11 @@ namespace SkinHubApp.Controllers
             }
         }
 
-        
+        /// <summary>
+        /// Gets all comment by author
+        /// </summary>
+        /// <param name="author"></param>
+        /// <returns></returns>
 
         [HttpGet]
         [Route("[action]")]
@@ -152,7 +176,11 @@ namespace SkinHubApp.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Gets comment by comment Identity
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("[action]")]
         [Produces(typeof(CommentDto))]

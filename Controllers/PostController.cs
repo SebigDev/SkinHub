@@ -28,6 +28,11 @@ namespace SkinHubApp.Controllers
 
         #region POST and PUT
 
+        /// <summary>
+        /// Creates a Post
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("[action]")]
         [Produces(typeof(PostDto))]
@@ -55,6 +60,11 @@ namespace SkinHubApp.Controllers
             }
         }
         
+        /// <summary>
+        /// Updates a post
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPut]
         [Route("[action]")]
         [Produces(typeof(PostDto))]
@@ -84,6 +94,11 @@ namespace SkinHubApp.Controllers
         #endregion
 
         #region GET
+
+        /// <summary>
+        /// Gets all posts
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("[action]")]
         [Produces(typeof(IEnumerable<PostDto>))]
@@ -106,6 +121,11 @@ namespace SkinHubApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets all posts by productlist Identity
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("[action]")]
         [Produces(typeof(IEnumerable<PostDto>))]
@@ -128,7 +148,10 @@ namespace SkinHubApp.Controllers
             }
         }
 
-        
+        /// <summary>
+        /// Gets all post by an author
+        /// </summary>
+        /// <returns></returns>
 
         [HttpGet]
         [Route("[action]")]
@@ -152,6 +175,11 @@ namespace SkinHubApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets a post by post identity
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
 
         [HttpGet]
         [Route("[action]")]

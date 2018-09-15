@@ -3,8 +3,12 @@ using SkinHubApp.Models;
 
 namespace SkinHubApp.Data
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class SkinHubAppDbContext : DbContext
     {
+    
         public SkinHubAppDbContext(DbContextOptions<SkinHubAppDbContext> options): base(options)
         { }
 
@@ -22,6 +26,9 @@ namespace SkinHubApp.Data
         public DbSet<Comment> Comment {get; set;}
 
         public DbSet<Reply> Reply {get; set;}
+
+
+        public DbSet<Member> Member {get; set;}
 
     }
 }

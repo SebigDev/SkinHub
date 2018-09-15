@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SkinHubApp.Data;
 
 namespace SkinHubApp.Migrations
 {
     [DbContext(typeof(SkinHubAppDbContext))]
-    partial class SkinHubAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180909233126_AuthenticationAdded")]
+    partial class AuthenticationAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,7 +80,7 @@ namespace SkinHubApp.Migrations
 
                     b.Property<int>("Age");
 
-                    b.Property<int>("ColorTypeID");
+                    b.Property<string>("Color");
 
                     b.Property<DateTime>("DateOfBirth");
 
@@ -99,8 +101,6 @@ namespace SkinHubApp.Migrations
                     b.Property<string>("Username");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("ColorTypeID");
 
                     b.ToTable("Member");
                 });
@@ -196,14 +196,6 @@ namespace SkinHubApp.Migrations
                     b.HasOne("SkinHubApp.Models.Post", "Post")
                         .WithMany("Comment")
                         .HasForeignKey("PostID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SkinHubApp.Models.Member", b =>
-                {
-                    b.HasOne("SkinHubApp.Models.ColorType", "Color")
-                        .WithMany()
-                        .HasForeignKey("ColorTypeID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

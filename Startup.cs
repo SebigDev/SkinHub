@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -41,11 +43,35 @@ namespace SkinHubApp
             services.AddTransient<IPostServices, PostServices>();
             services.AddTransient<ICommentServices, CommentServices>();
             services.AddTransient<IReplyServices, ReplyServices>();
+            services.AddTransient<IMemberServices, MemberServices>();
 
 
              services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "SkinHubApp API", Version = "v1" });
+                c.SwaggerDoc("v1", new Info {
+                     Title = "SkinHubApp API", 
+                     Version = "v1",
+                    
+                    Description = "A Skin Cream, Soap and Beauty Analysis Forum",
+                    TermsOfService = "None",
+                    Contact = new Contact
+                    {
+                        Name = "Sebig Dev",
+                        Email = string.Empty,
+                        Url = "https://twitter.com/engineerchooks",
+                           
+                    },
+                    License = new License
+                    {
+                        Name = "MIT",
+                        Url = "https://mit.com/license"
+                    }
+                      });
+
+                // Set the comments path for the Swagger JSON and UI.
+                    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                    c.IncludeXmlComments(xmlPath);
             });
         }
 
@@ -73,9 +99,7 @@ namespace SkinHubApp
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "SkinHubApp API V1");
-                c.RoutePrefix = string.Empty;
             });
-            app.UseMvc();
 
             app.UseHttpsRedirection();
             app.UseMvc();

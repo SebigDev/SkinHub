@@ -28,6 +28,11 @@ namespace SkinHubApp.Controllers
 
         #region POST and PUT
 
+        /// <summary>
+        /// Create a new color
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("[action]")]
         [Produces(typeof(ColorTypeDto))]
@@ -55,6 +60,11 @@ namespace SkinHubApp.Controllers
             }
         }
         
+        /// <summary>
+        /// Updates a color
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPut]
         [Route("[action]")]
         [Produces(typeof(ColorTypeDto))]
@@ -83,6 +93,10 @@ namespace SkinHubApp.Controllers
 
         #endregion
 
+        /// <summary>
+        /// Gets all colors
+        /// </summary>
+        /// <returns></returns>
         #region GET
         [HttpGet]
         [Route("[action]")]
@@ -106,6 +120,11 @@ namespace SkinHubApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets color by gender identity
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("[action]")]
         [Produces(typeof(IEnumerable<ColorTypeDto>))]
@@ -128,7 +147,11 @@ namespace SkinHubApp.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Gets color by color idenity
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("[action]")]
         [Produces(typeof(ColorTypeDto))]
