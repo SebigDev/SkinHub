@@ -114,7 +114,7 @@ namespace SkinHubApp.Services
                     CreatedOn = post.CreatedOn,
                     Author = post.Author,
                     ProductListTypeID = post.ProductListTypeID,
-                    ProductListType = post.ProductListType.Name, 
+                    //ProductListType = post.ProductListType.Name, 
                };
                return model;
            }
