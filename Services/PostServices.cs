@@ -10,7 +10,7 @@ using SkinHubApp.Models;
 
 namespace SkinHubApp.Services
 {
-    public class PostServices : IPostServices
+    public sealed class PostServices : IPostServices
     {
          #region Fields
             private readonly SkinHubAppDbContext _skinHubAppDbContext;
@@ -30,26 +30,23 @@ namespace SkinHubApp.Services
         #region Methods
         public async Task<long> CreatePost(CreatePostDto model)
         {
-           if(model != null)
-           {
-                var createPost = new Post
-                {
-                    Title = model.Title,
-                    Body = model.Body,
-                    CreatedOn = DateTime.UtcNow,
-                    Author = "Annonymous",
-                    ProductListTypeID = model.ProductListTypeID
-                };
-                await _skinHubAppDbContext.AddAsync(createPost);
-                await _skinHubAppDbContext.SaveChangesAsync();
-                return createPost.ID;
-           }
-           return 0;
+            if (model == null) return 0;
+            var createPost = new Post
+            {
+                Title = model.Title,
+                Body = model.Body,
+                CreatedOn = DateTime.UtcNow,
+                Author = "Anonymous",
+                ProductListTypeID = model.ProductListTypeID
+            };
+            await _skinHubAppDbContext.AddAsync(createPost);
+            await _skinHubAppDbContext.SaveChangesAsync();
+            return createPost.ID;
         }
 
-        public async Task<bool> DeletePost(long Id)
+        public async Task<bool> DeletePost(long id)
         {
-            var postToDelete = await _skinHubAppDbContext.Post.FindAsync(Id);
+            var postToDelete = await _skinHubAppDbContext.Post.FindAsync(id);
             if(postToDelete != null)
             {
                  _skinHubAppDbContext.Post.Remove(postToDelete);
@@ -83,63 +80,54 @@ namespace SkinHubApp.Services
         public async Task<IEnumerable<PostDto>> GetAllPostsByAuthor(string author)
         {
             var allPost = await _skinHubAppDbContext.Post.Include(c => c.ProductListType).Where(c => c.Author == author).ToListAsync();
-            if(allPost.Count() > 0)
+            if (!allPost.Any()) return null;
+            var model = new List<PostDto>();
+            model.AddRange(allPost.OrderBy(x => x.CreatedOn).Select(m => new PostDto()
             {
-                var model = new List<PostDto>();
-                model.AddRange(allPost.OrderBy(x => x.CreatedOn).Select(m => new PostDto()
-                {
-                    ID = m.ID,
-                    Title = m.Title,
-                    Body = m.Body,
-                    CreatedOn = m.CreatedOn,
-                    Author = m.Author,
-                    ProductListTypeID = m.ProductListTypeID,
-                    ProductListType = m.ProductListType.Name,
-                }));
-                return model;
-            }
-            return null;
+                ID = m.ID,
+                Title = m.Title,
+                Body = m.Body,
+                CreatedOn = m.CreatedOn,
+                Author = m.Author,
+                ProductListTypeID = m.ProductListTypeID,
+                ProductListType = m.ProductListType.Name,
+            }));
+            return model;
         }
 
-        public async Task<PostDto> GetPostByID(long id)
+        public async Task<PostDto> GetPostById(long id)
         {
            var post = await _skinHubAppDbContext.Post.Where(p => p.ID == id).FirstOrDefaultAsync();
-           if(post != null)
-           {
-               var model = new PostDto
-               {
-                    ID = post.ID,
-                    Title = post.Title,
-                    Body = post.Body,
-                    CreatedOn = post.CreatedOn,
-                    Author = post.Author,
-                    ProductListTypeID = post.ProductListTypeID,
-                    ProductListType = post.ProductListType.Name, 
-               };
-               return model;
-           }
-           return null;
+            if (post == null) return null;
+            var model = new PostDto
+            {
+                ID = post.ID,
+                Title = post.Title,
+                Body = post.Body,
+                CreatedOn = post.CreatedOn,
+                Author = post.Author,
+                ProductListTypeID = post.ProductListTypeID,
+                ProductListType = post.ProductListType.Name, 
+            };
+            return model;
         }
 
-        public async Task<IEnumerable<PostDto>> GetPostByProductListTypeID(int id)
+        public async Task<IEnumerable<PostDto>> GetPostByProductListTypeId(int id)
         {
             var allPost = await _skinHubAppDbContext.Post.Include(c => c.ProductListType).Where(c => c.ProductListTypeID == id).ToListAsync();
-            if(allPost.Count() > 0)
+            if (!allPost.Any()) return null;
+            var model = new List<PostDto>();
+            model.AddRange(allPost.OrderBy(x => x.CreatedOn).Select(m => new PostDto()
             {
-                var model = new List<PostDto>();
-                model.AddRange(allPost.OrderBy(x => x.CreatedOn).Select(m => new PostDto()
-                {
-                    ID = m.ID,
-                    Title = m.Title,
-                    Body = m.Body,
-                    CreatedOn = m.CreatedOn,
-                    Author = m.Author,
-                    ProductListTypeID = m.ProductListTypeID,
-                    ProductListType = m.ProductListType.Name,
-                }));
-                return model;
-            }
-            return null;
+                ID = m.ID,
+                Title = m.Title,
+                Body = m.Body,
+                CreatedOn = m.CreatedOn,
+                Author = m.Author,
+                ProductListTypeID = m.ProductListTypeID,
+                ProductListType = m.ProductListType.Name,
+            }));
+            return model;
         }
         public async Task<long> UpdatePost(PostDto model)
         {
@@ -158,30 +146,41 @@ namespace SkinHubApp.Services
         #region Validation   
         public async Task<bool> IsNameExist(string name, int id)
         {
-            if(await _skinHubAppDbContext.Post.AnyAsync( a => a.Title == name && a.ProductListTypeID == id))
-                return true;
-            return false;
+            return await _skinHubAppDbContext.Post.AnyAsync( a => a.Title == name && a.ProductListTypeID == id);
+        }
+
+        public async Task<IEnumerable<PostDto>> GetAllRelatedPosts(long id)
+        {
+            var postCollection = await _skinHubAppDbContext.Post.Where(p =>p.ID == id).ToListAsync();
+            var postDto = new List<PostDto>();
+            if (!postCollection.Any()) return null;
+            postDto.AddRange(postCollection.GroupBy(c => c.ProductListTypeID).Select(x => new PostDto()
+            {
+                ID = id,
+                ProductListTypeID = x.Key,
+                Title = x.ToLookup(a => a.Title).ToString()
+            }));
+            return postDto;
+
         }
 
         #endregion
 
         #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
+        private bool _disposedValue = false; // To detect redundant calls
 
-        protected virtual void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (_disposedValue) return;
+            if (disposing)
             {
-                if (disposing)
-                {
-                    // TODO: dispose managed state (managed objects).
-                }
-
-                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-                // TODO: set large fields to null.
-
-                disposedValue = true;
+                // TODO: dispose managed state (managed objects).
             }
+
+            // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+            // TODO: set large fields to null.
+
+            _disposedValue = true;
         }
 
         // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.

@@ -73,16 +73,11 @@ namespace SkinHubApp.Controllers
         {
             try
             {
-                if(ModelState.IsValid)
-                {
-                    var update = await _postServices.GetPostByID(model.ID);
-                    if(update != null)
-                    {
-                        await _postServices.UpdatePost(model);
-                        return Ok($"{model.Title} updated Successfully");
-                    }
-                }
-                return BadRequest("Update failed, Please try again");
+                if (!ModelState.IsValid) return BadRequest("Update failed, Please try again");
+                var update = await _postServices.GetPostById(model.ID);
+                if (update == null) return BadRequest("Update failed, Please try again");
+                await _postServices.UpdatePost(model);
+                return Ok($"{model.Title} updated Successfully");
 
             }
             catch (Exception ex)
@@ -124,17 +119,17 @@ namespace SkinHubApp.Controllers
         /// <summary>
         /// Gets all posts by productlist Identity
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("[action]")]
         [Produces(typeof(IEnumerable<PostDto>))]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetPostByProductListTypeID(int Id)
+        public async Task<IActionResult> GetPostByProductListTypeId(int id)
         {
             try
             {
-                var allPosts = await _postServices.GetPostByProductListTypeID(Id);
+                var allPosts = await _postServices.GetPostByProductListTypeId(id);
                 if(allPosts != null)
                 {
                     return Ok(allPosts);
@@ -178,23 +173,23 @@ namespace SkinHubApp.Controllers
         /// <summary>
         /// Gets a post by post identity
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
 
         [HttpGet]
         [Route("[action]")]
         [Produces(typeof(PostDto))]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetPostByID(long Id)
+        public async Task<IActionResult> GetPostById(long id)
         {
             try
             {
-                var color = await _postServices.GetPostByID(Id);
+                var color = await _postServices.GetPostById(id);
                 if(color != null)
                 {
                     return Ok(color);
                 }
-                return BadRequest($"Sorry!, No Data with Id: {Id} found, Please try again");
+                return BadRequest($"Sorry!, No Data with Id: {id} found, Please try again");
 
             }
             catch (Exception ex)
@@ -202,6 +197,35 @@ namespace SkinHubApp.Controllers
                 return BadRequest($"{ex.Message}, Error! Your task failed, Please try again");
             }
         }
+        
+        /// <summary>
+        /// Gets a post by post identity
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+
+        [HttpGet]
+        [Route("[action]")]
+        [Produces(typeof(IEnumerable<PostDto>))]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetAllRelatedPosts(long id)
+        {
+            try
+            {
+                var post = await _postServices.GetAllRelatedPosts(id);
+                if(post != null)
+                {
+                    return Ok(post);
+                }
+                return BadRequest($"Sorry!, No Data with Id: {id} found, Please try again");
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"{ex.Message}, Error! Your task failed, Please try again");
+            }
+        }
+
 
         #endregion
 

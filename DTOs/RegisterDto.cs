@@ -18,7 +18,7 @@ namespace SkinHubApp.DTOs
 
         public string  Lastname {get; set;}
 
-        public int ColorTypeID {get; set;}
+        public SkinColor Color {get; set;}
 
         public GenderEnum Gender {get; set;}
 

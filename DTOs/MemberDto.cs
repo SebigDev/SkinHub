@@ -19,13 +19,13 @@ namespace SkinHubApp.DTOs
 
         public string  Lastname {get; set;}
 
-        public int ColorTypeID {get; set;}
-        public string Color {get; set;}
+        public SkinColor Color {get; set;}
 
         public GenderEnum Gender {get; set;}
 
         public DateTime DateOfBirth {get; set;}
 
         public int Age {get; set;}
+        
     }
 }

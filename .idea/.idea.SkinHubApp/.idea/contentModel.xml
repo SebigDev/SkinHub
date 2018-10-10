@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Sebig\.Rider2018.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Sebig\.Rider2018.2\system\resharper-host\local\Transient\ReSharperHost\v182\SolutionCaches\_SkinHubApp.-42516651.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Sebig\source\repos\SkinHub\SkinHubApp" t="IncludeRecursive">
+      <e p="appsettings.Development.json" t="Include" />
+      <e p="appsettings.json" t="Include" />
+      <e p="Bin" t="ExcludeRecursive" />
+      <e p="Controllers" t="Include">
+        <e p="ColorTypeController.cs" t="Include" />
+        <e p="CommentController.cs" t="Include" />
+        <e p="GenderTypeController.cs" t="Include" />
+        <e p="MemberController.cs" t="Include" />
+        <e p="PostController.cs" t="Include" />
+        <e p="ProductListTypeController.cs" t="Include" />
+        <e p="ProductTypeController.cs" t="Include" />
+        <e p="ReplyController.cs" t="Include" />
+      </e>
+      <e p="Data" t="Include">
+        <e p="SkinHubAppDbContext.cs" t="Include" />
+      </e>
+      <e p="DTOs" t="Include">
+        <e p="ColorTypeDto.cs" t="Include" />
+        <e p="CommentDto.cs" t="Include" />
+        <e p="CreateColorTypeDto.cs" t="Include" />
+        <e p="CreateCommentDto.cs" t="Include" />
+        <e p="CreateGenderTypeDto.cs" t="Include" />
+        <e p="CreatePostDto.cs" t="Include" />
+        <e p="CreateProductListTypeDto.cs" t="Include" />
+        <e p="CreateProductTypeDto.cs" t="Include" />
+        <e p="CreateReplyDto.cs" t="Include" />
+        <e p="GenderTypeDto.cs" t="Include" />
+        <e p="LoginDto.cs" t="Include" />
+        <e p="MemberDto.cs" t="Include" />
+        <e p="PostDto.cs" t="Include" />
+        <e p="ProductListTypeDto.cs" t="Include" />
+        <e p="ProductTypeDto.cs" t="Include" />
+        <e p="RegisterDto.cs" t="Include" />
+        <e p="ReplyDto.cs" t="Include" />
+      </e>
+      <e p="Enum" t="Include">
+        <e p="GenderEnum.cs" t="Include" />
+        <e p="SkinColor.cs" t="Include" />
+      </e>
+      <e p="Migrations" t="Include">
+        <e p="20181006094433_init.cs" t="Include" />
+        <e p="20181006094433_init.Designer.cs" t="Include" />
+        <e p="20181006101659_addedColorEnum.cs" t="Include" />
+        <e p="20181006101659_addedColorEnum.Designer.cs" t="Include" />
+        <e p="SkinHubAppDbContextModelSnapshot.cs" t="Include" />
+      </e>
+      <e p="Models" t="Include">
+        <e p="ColorType.cs" t="Include" />
+        <e p="Comment.cs" t="Include" />
+        <e p="GenderType.cs" t="Include" />
+        <e p="Member.cs" t="Include" />
+        <e p="Post.cs" t="Include" />
+        <e p="ProductListType.cs" t="Include" />
+        <e p="ProductType.cs" t="Include" />
+        <e p="Reply.cs" t="Include" />
+      </e>
+      <e p="obj" t="ExcludeRecursive">
+        <e p="Debug" t="Include">
+          <e p="netcoreapp2.1" t="Include">
+            <e p="SkinHubApp.AssemblyInfo.cs" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Program.cs" t="Include" />
+      <e p="Properties" t="Include">
+        <e p="launchSettings.json" t="Include" />
+      </e>
+      <e p="Services" t="Include">
+        <e p="ColorTypeServices.cs" t="Include" />
+        <e p="CommentServices.cs" t="Include" />
+        <e p="GenderTypeServices.cs" t="Include" />
+        <e p="IColorTypeServices.cs" t="Include" />
+        <e p="ICommentServices.cs" t="Include" />
+        <e p="IGenderTypeServices.cs" t="Include" />
+        <e p="IMemberServices.cs" t="Include" />
+        <e p="IPostServices.cs" t="Include" />
+        <e p="IProductListTypeServices.cs" t="Include" />
+        <e p="IProductTypeServices.cs" t="Include" />
+        <e p="IReplyServices.cs" t="Include" />
+        <e p="MemberServices.cs" t="Include" />
+        <e p="PostServices.cs" t="Include" />
+        <e p="ProductListTypeServices.cs" t="Include" />
+        <e p="ProductTypeServices.cs" t="Include" />
+        <e p="ReplyServices.cs" t="Include" />
+      </e>
+      <e p="SkinHubApp.csproj" t="IncludeRecursive" />
+      <e p="Startup.cs" t="Include" />
+      <e p="wwwroot" t="Include" />
+    </e>
+  </component>
+</project>

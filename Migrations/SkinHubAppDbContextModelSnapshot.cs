@@ -78,7 +78,7 @@ namespace SkinHubApp.Migrations
 
                     b.Property<int>("Age");
 
-                    b.Property<int>("ColorTypeID");
+                    b.Property<int>("Color");
 
                     b.Property<DateTime>("DateOfBirth");
 
@@ -99,8 +99,6 @@ namespace SkinHubApp.Migrations
                     b.Property<string>("Username");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("ColorTypeID");
 
                     b.ToTable("Member");
                 });
@@ -196,14 +194,6 @@ namespace SkinHubApp.Migrations
                     b.HasOne("SkinHubApp.Models.Post", "Post")
                         .WithMany("Comment")
                         .HasForeignKey("PostID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SkinHubApp.Models.Member", b =>
-                {
-                    b.HasOne("SkinHubApp.Models.ColorType", "Color")
-                        .WithMany()
-                        .HasForeignKey("ColorTypeID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

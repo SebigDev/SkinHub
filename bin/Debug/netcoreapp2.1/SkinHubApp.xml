@@ -120,11 +120,18 @@
             <param name="loginDto"></param>
             <returns>returns a token  for the member</returns>
         </member>
-        <member name="M:SkinHubApp.Controllers.MemberController.GetMemberByID(System.Int64)">
+        <member name="M:SkinHubApp.Controllers.MemberController.UpdateMember(SkinHubApp.DTOs.MemberDto)">
+            <summary>
+            Updates a member
+            </summary>
+            <param name="model"></param>
+            <returns>returns a member updated</returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.MemberController.GetMemberById(System.Int64)">
             <summary>
             Retrieves Member by Member Identity
             </summary>
-            <param name="ID"></param>
+            <param name="id"></param>
             <returns>returns a member by Id</returns>
         </member>
         <member name="M:SkinHubApp.Controllers.MemberController.GetMemberByUsername(System.String)">
@@ -134,12 +141,12 @@
             <param name="username"></param>
             <returns>returns a member by username</returns>
         </member>
-        <member name="M:SkinHubApp.Controllers.MemberController.GetMemberByColorID(System.Int32)">
+        <member name="M:SkinHubApp.Controllers.MemberController.GetMemberByColor(System.String)">
             <summary>
-            Retrieves Member By Member Color Identity
+            Retrieves Member By Member Color
             </summary>
-            <param name="id"></param>
-            <returns>returns a member by color Id</returns>
+            <param name="color"></param>
+            <returns>returns a member by color</returns>
         </member>
         <member name="M:SkinHubApp.Controllers.PostController.Create(SkinHubApp.DTOs.CreatePostDto)">
             <summary>
@@ -161,11 +168,11 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:SkinHubApp.Controllers.PostController.GetPostByProductListTypeID(System.Int32)">
+        <member name="M:SkinHubApp.Controllers.PostController.GetPostByProductListTypeId(System.Int32)">
             <summary>
             Gets all posts by productlist Identity
             </summary>
-            <param name="Id"></param>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:SkinHubApp.Controllers.PostController.GetAllPostsByAuthor(System.String)">
@@ -174,11 +181,18 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:SkinHubApp.Controllers.PostController.GetPostByID(System.Int64)">
+        <member name="M:SkinHubApp.Controllers.PostController.GetPostById(System.Int64)">
             <summary>
             Gets a post by post identity
             </summary>
-            <param name="Id"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SkinHubApp.Controllers.PostController.GetAllRelatedPosts(System.Int64)">
+            <summary>
+            Gets a post by post identity
+            </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:SkinHubApp.Controllers.ProductListTypeController.Create(SkinHubApp.DTOs.CreateProductListTypeDto)">

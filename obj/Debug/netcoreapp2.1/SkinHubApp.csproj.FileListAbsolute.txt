@@ -3,7 +3,6 @@ C:\Users\Sebig\source\repos\SkinHub\SkinHubApp\bin\Debug\netcoreapp2.1\SkinHubAp
 C:\Users\Sebig\source\repos\SkinHub\SkinHubApp\bin\Debug\netcoreapp2.1\SkinHubApp.runtimeconfig.dev.json
 C:\Users\Sebig\source\repos\SkinHub\SkinHubApp\bin\Debug\netcoreapp2.1\SkinHubApp.dll
 C:\Users\Sebig\source\repos\SkinHub\SkinHubApp\bin\Debug\netcoreapp2.1\SkinHubApp.pdb
-C:\Users\Sebig\source\repos\SkinHub\SkinHubApp\obj\Debug\netcoreapp2.1\SkinHubApp.csprojAssemblyReference.cache
 C:\Users\Sebig\source\repos\SkinHub\SkinHubApp\obj\Debug\netcoreapp2.1\SkinHubApp.csproj.CoreCompileInputs.cache
 C:\Users\Sebig\source\repos\SkinHub\SkinHubApp\obj\Debug\netcoreapp2.1\SkinHubApp.RazorAssemblyInfo.cache
 C:\Users\Sebig\source\repos\SkinHub\SkinHubApp\obj\Debug\netcoreapp2.1\SkinHubApp.RazorAssemblyInfo.cs
@@ -14,3 +13,4 @@ C:\Users\Sebig\source\repos\SkinHub\SkinHubApp\obj\Debug\netcoreapp2.1\SkinHubAp
 C:\Users\Sebig\source\repos\SkinHub\SkinHubApp\obj\Debug\netcoreapp2.1\SkinHubApp.pdb
 C:\Users\Sebig\source\repos\SkinHub\SkinHubApp\bin\Debug\netcoreapp2.1\SkinHubApp.xml
 C:\Users\Sebig\source\repos\SkinHub\SkinHubApp\obj\Debug\netcoreapp2.1\SkinHubApp.xml
+C:\Users\Sebig\source\repos\SkinHub\SkinHubApp\obj\Debug\netcoreapp2.1\SkinHubApp.csprojResolveAssemblyReference.cache

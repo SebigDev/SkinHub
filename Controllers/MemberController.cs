@@ -54,7 +54,7 @@ namespace SkinHubApp.Controllers
                 {
                     Username = registerDto.Username,
                     EmailAddress = registerDto.EmailAddress,
-                    ColorTypeID = registerDto.ColorTypeID,
+                    Color = registerDto.Color,
                     Gender = registerDto.Gender,
                     Firstname = registerDto.Firstname,
                     Middlename = registerDto.Middlename,
@@ -100,7 +100,7 @@ namespace SkinHubApp.Controllers
                {
                    new Claim(ClaimTypes.NameIdentifier, logMember.ID.ToString()),
                    new Claim(ClaimTypes.Name, logMember.Username),
-                   new Claim(ClaimTypes.Email, loginDto.EmailAddress),
+                   new Claim(ClaimTypes.Email, logMember.EmailAddress),
                }),
                Expires = DateTime.Now.AddDays(2),
                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature)
@@ -116,25 +116,52 @@ namespace SkinHubApp.Controllers
         }
     }
 
+    
+        /// <summary>
+        /// Updates a member
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>returns a member updated</returns>
+        [HttpPut]
+        [Route("[action]")]
+        [Produces(typeof(MemberDto))]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> UpdateMember([FromBody] MemberDto model)
+        {
+        try
+        {
+                var memberToUpdate = await _authServices.UpdateMember(model);
+                if(memberToUpdate > 0)
+                {
+                    return Ok(memberToUpdate);
+                }
+                return NotFound($"Member with {model.Username} not found");
+        }
+        catch (Exception)
+        {
+            return BadRequest("Error!  Request cannot be completed, Please contact administrator");
+        }
+        }
+
     /// <summary>
     /// Retrieves Member by Member Identity
     /// </summary>
-    /// <param name="ID"></param>
+    /// <param name="id"></param>
     /// <returns>returns a member by Id</returns>
     [HttpGet]
     [Route("[action]")]
     [Produces(typeof(MemberDto))]
     [ProducesResponseType(200)]
-    public async Task<IActionResult> GetMemberByID(long ID)
+    public async Task<IActionResult> GetMemberById(long id)
     {
        try
        {
-            var memberByID = await _authServices.GetMemberByID(ID);
-            if(memberByID != null)
+            var memberById = await _authServices.GetMemberById(id);
+            if(memberById != null)
             {
-                return Ok(memberByID);
+                return Ok(memberById);
             }
-            return NotFound($"Member with ID: {ID} not found");
+            return NotFound($"Member with ID: {id} not found");
        }
        catch (Exception)
        {
@@ -156,10 +183,10 @@ namespace SkinHubApp.Controllers
     {
        try
        {
-            var MemberByMembername = await _authServices.GetMemberByUsername(username);
-            if(MemberByMembername != null)
+            var memberByMembername = await _authServices.GetMemberByUsername(username);
+            if(memberByMembername != null)
             {
-                return Ok(MemberByMembername);
+                return Ok(memberByMembername);
             }
             return NotFound($"Member with Membername: {username} not found");
        }
@@ -170,30 +197,31 @@ namespace SkinHubApp.Controllers
     }
 
 /// <summary>
-/// Retrieves Member By Member Color Identity
+/// Retrieves Member By Member Color
 /// </summary>
-/// <param name="id"></param>
-/// <returns>returns a member by color Id</returns>
+/// <param name="color"></param>
+/// <returns>returns a member by color</returns>
     [HttpGet]
     [Route("[action]")]
     [Produces(typeof(IEnumerable<MemberDto>))]
     [ProducesResponseType(200)]
-    public async Task<IActionResult> GetMemberByColorID(int id)
+    public async Task<IActionResult> GetMemberByColor(string color)
     {
        try
        {
-            var MemberByMembername = await _authServices.GetMemberByColorID(id);
+            var MemberByMembername = await _authServices.GetMemberByColor(color);
             if(MemberByMembername != null)
             {
                 return Ok(MemberByMembername);
             }
-            return NotFound($"Member with Color ID: {id} not found");
+            return NotFound($"Member with Color: {color} not found");
        }
        catch (Exception)
        {
           return BadRequest("Error!  Request cannot be completed, Please contact administrator");
        }
     }
+
 
     } 
 }

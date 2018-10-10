@@ -11625,11 +11625,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\Sebig\\source\\repos\\SkinHub\\SkinHubApp\\SkinHubApp.csproj",
+      "projectUniqueName": "C:\\Users\\Sebig\\source\\repos\\SkinHub\\SkinHubApp\\SkinHubApp.csproj",
       "projectName": "SkinHubApp",
-      "projectPath": "c:\\Users\\Sebig\\source\\repos\\SkinHub\\SkinHubApp\\SkinHubApp.csproj",
+      "projectPath": "C:\\Users\\Sebig\\source\\repos\\SkinHub\\SkinHubApp\\SkinHubApp.csproj",
       "packagesPath": "C:\\Users\\Sebig\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\Sebig\\source\\repos\\SkinHub\\SkinHubApp\\obj\\",
+      "outputPath": "C:\\Users\\Sebig\\source\\repos\\SkinHub\\SkinHubApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -11666,6 +11666,7 @@
             "autoReferenced": true
           },
           "Microsoft.NETCore.App": {
+            "suppressParent": "All",
             "target": "Package",
             "version": "[2.1.0, )",
             "autoReferenced": true

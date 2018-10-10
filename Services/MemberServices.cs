@@ -9,7 +9,7 @@ using SkinHubApp.Models;
 
 namespace SkinHubApp.Services
 {
-    public class MemberServices : IMemberServices
+    public sealed class MemberServices : IMemberServices
     {
         private readonly SkinHubAppDbContext _skinHubAppDbContext;
         public MemberServices(SkinHubAppDbContext  skinHubAppDbContext)
@@ -30,12 +30,8 @@ namespace SkinHubApp.Services
                }
                     
             //check password
-               if(!VerifyPasswordHash(password, logMember.PasswordHash, logMember.PasswordSalt))
-                   {
-                        return null;
-                   }
-            //Authentication is succefull
-                return logMember; 
+               return !VerifyPasswordHash(password, logMember.PasswordHash, logMember.PasswordSalt) ? null : logMember;
+            //Authentication is successful
            }
            catch (Exception)
            {
@@ -43,25 +39,20 @@ namespace SkinHubApp.Services
            }
 
         }
-       private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+       private static bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
        {
            using(var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
            {
                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-               for(int i = 0; i < computedHash.Length; i++)
-               {
-                  if(computedHash[i] != passwordHash[i])
-                        return false;
-               }
-               return true;
+               return !computedHash.Where((t, i) => t != passwordHash[i]).Any();
            }
+
        }
 // MEMBER REGISTRATION ACTION
         public async Task<Member> Register(Member register, string password)
         {
             //PASSWORD ENCRYPTION
-            byte[] passwordHash, passwordSalt;
-            CreatePasswordEncrypt(password, out passwordHash, out passwordSalt);
+            CreatePasswordEncrypt(password, out var passwordHash, out var passwordSalt);
 
             register.PasswordHash = passwordHash;
             register.PasswordSalt = passwordSalt;
@@ -71,7 +62,7 @@ namespace SkinHubApp.Services
             return register;
         }
 //CREATION OF PASSWORD ENCRYPTION
-        private void CreatePasswordEncrypt(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        private static void CreatePasswordEncrypt(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
            using(var hmac = new System.Security.Cryptography.HMACSHA512())
            {
@@ -86,109 +77,105 @@ namespace SkinHubApp.Services
 //CHECKING IF Member EXIST ALREADY
         public async Task<bool> MemberExists(string username, string emailAddress)
         {
-            if(await _skinHubAppDbContext.Member
-                        .AnyAsync(x => x.Username == username && x.EmailAddress == emailAddress))
-            {
-                return true;
-            }
-            return false;
+            return await _skinHubAppDbContext.Member
+                .AnyAsync(x => x.Username == username && x.EmailAddress == emailAddress);
         }
 
 
             //Get Methods
-         public async Task<MemberDto> GetMemberByID(long ID)
+         public async Task<MemberDto> GetMemberById(long id)
         {
-           var memberById = await _skinHubAppDbContext.Member.Include(x =>x.Color).Where(x =>x.ID == ID).FirstOrDefaultAsync();
-           if(memberById != null)
-           {
-               var model = new MemberDto
-               {
-                   ID = memberById.ID,
-                    Username = memberById.Username,
-                    EmailAddress = memberById.EmailAddress,
-                    ColorTypeID = memberById.ColorTypeID,
-                    Color = memberById.Color.Name,
-                    Gender = memberById.Gender,
-                    Firstname = memberById.Firstname,
-                    Middlename = memberById.Middlename,
-                    Lastname = memberById.Lastname,
-                    DateOfBirth = memberById.DateOfBirth,
-                    Age = memberById.Age
-               };
-               return model;
-           }
-           return null;
+           var memberById = await _skinHubAppDbContext.Member.Where(x =>x.ID == id).FirstOrDefaultAsync();
+            if (memberById == null) return null;
+            var model = new MemberDto
+            {
+                ID = memberById.ID,
+                Username = memberById.Username,
+                EmailAddress = memberById.EmailAddress,
+                Color = memberById.Color,
+                Gender = memberById.Gender,
+                Firstname = memberById.Firstname,
+                Middlename = memberById.Middlename,
+                Lastname = memberById.Lastname,
+                DateOfBirth = memberById.DateOfBirth,
+                Age = memberById.Age
+            };
+            return model;
         }
 
         public async Task<MemberDto> GetMemberByUsername(string username)
         {
-            var memberByUsername = await _skinHubAppDbContext.Member.Include(x =>x.Color).Where(x=>x.Username == username).FirstOrDefaultAsync();
-            if(memberByUsername != null)
+            var memberByUsername = await _skinHubAppDbContext.Member.Where(x=>x.Username == username).FirstOrDefaultAsync();
+            if (memberByUsername == null) return null;
+            var model = new MemberDto
             {
-                var model = new MemberDto
-               {
-                   ID = memberByUsername.ID,
-                    Username = memberByUsername.Username,
-                    EmailAddress = memberByUsername.EmailAddress,
-                    ColorTypeID = memberByUsername.ColorTypeID,
-                    Color = memberByUsername.Color.Name,
-                    Gender = memberByUsername.Gender,
-                    Firstname = memberByUsername.Firstname,
-                    Middlename = memberByUsername.Middlename,
-                    Lastname = memberByUsername.Lastname,
-                    DateOfBirth = memberByUsername.DateOfBirth,
-                    Age = memberByUsername.Age
-               };
-               return model;
-            }
-            return null;
+                ID = memberByUsername.ID,
+                Username = memberByUsername.Username,
+                EmailAddress = memberByUsername.EmailAddress,
+                Color = memberByUsername.Color,
+                Gender = memberByUsername.Gender,
+                Firstname = memberByUsername.Firstname,
+                Middlename = memberByUsername.Middlename,
+                Lastname = memberByUsername.Lastname,
+                DateOfBirth = memberByUsername.DateOfBirth,
+                Age = memberByUsername.Age
+            };
+            return model;
         }
 
-         public async Task<IEnumerable<MemberDto>> GetMemberByColorID(int id)
+         public async Task<IEnumerable<MemberDto>> GetMemberByColor(string color)
         {
-            var memberByUsername = await _skinHubAppDbContext.Member.Include(x =>x.Color).Where(x=>x.ColorTypeID == id).ToListAsync();
-            if(memberByUsername != null)
+            var memberByUsername = await _skinHubAppDbContext.Member.Where(x=>x.Color.ToString() == color).ToListAsync();
+            if (memberByUsername == null) return null;
+            var model = new List<MemberDto>();
+            model.AddRange(memberByUsername.OrderBy(c =>c.ID).Select(m => new MemberDto()
             {
-                var model = new List<MemberDto>();
-                model.AddRange(memberByUsername.OrderBy(c =>c.ID).Select(m => new MemberDto()
-               {
-                    ID = m.ID,
-                    Username = m.Username,
-                    EmailAddress = m.EmailAddress,
-                    ColorTypeID = m.Color.ID,
-                    Color = m.Color.Name,
-                    Gender = m.Gender,
-                    Firstname = m.Firstname,
-                    Middlename = m.Middlename,
-                    Lastname = m.Lastname,
-                    DateOfBirth = m.DateOfBirth,
-                    Age = m.Age
-               }));
-               return model;
-            }
-            return null;
+                ID = m.ID,
+                Username = m.Username,
+                EmailAddress = m.EmailAddress,
+                Color = m.Color,
+                Gender = m.Gender,
+                Firstname = m.Firstname,
+                Middlename = m.Middlename,
+                Lastname = m.Lastname,
+                DateOfBirth = m.DateOfBirth,
+                Age = m.Age
+            }));
+            return model;
         }
 
+            public async Task<long> UpdateMember(MemberDto update)
+            {
+                
+                var memberToUpdate = await _skinHubAppDbContext.Member.FirstOrDefaultAsync(s =>s.ID == update.ID);
+                if (memberToUpdate == null) return 0;
+                memberToUpdate.Firstname = update.Firstname;
+                memberToUpdate.Lastname = update.Lastname;
+                memberToUpdate.Middlename = update.Middlename;
+                memberToUpdate.DateOfBirth = update.DateOfBirth;
+
+                _skinHubAppDbContext.Entry(memberToUpdate).State = EntityState.Modified;
+                await _skinHubAppDbContext.SaveChangesAsync();
+                return update.ID;
+            }
 
 
 //DISPOSING ALL INSTANCES CREATED 
         #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
+        private bool _disposedValue = false; // To detect redundant calls
 
-        protected virtual void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (_disposedValue) return;
+            if (disposing)
             {
-                if (disposing)
-                {
-                    // TODO: dispose managed state (managed objects).
-                }
-
-                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-                // TODO: set large fields to null.
-
-                disposedValue = true;
+                // TODO: dispose managed state (managed objects).
             }
+
+            // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+            // TODO: set large fields to null.
+
+            _disposedValue = true;
         }
 
         // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.

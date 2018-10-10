@@ -11,10 +11,12 @@ namespace SkinHubApp.Services
         Task<Member> Register(Member member, string password);
         Task<Member> Login(string username, string emailAddress, string password);
         Task<bool> MemberExists(string emailAddress, string username);
-        Task<MemberDto> GetMemberByID(long ID);
+        Task<MemberDto> GetMemberById(long id);
         Task<MemberDto> GetMemberByUsername(string username);
 
-        Task<IEnumerable<MemberDto>> GetMemberByColorID(int id);
+        Task<long> UpdateMember(MemberDto model);
+
+        Task<IEnumerable<MemberDto>> GetMemberByColor(string color);
 
     }
 }
