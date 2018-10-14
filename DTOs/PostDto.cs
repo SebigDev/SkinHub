@@ -16,7 +16,7 @@ namespace SkinHubApp.DTOs
 
         public int ProductListTypeID {get; set;}
 
-        public string ProductListType {get; set;}
+        public string ProductListType { get; set; } = "none";
 
     }
 }

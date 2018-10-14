@@ -4,6 +4,19 @@
     <e p="C:\Users\Sebig\.Rider2018.2\system\extResources" t="IncludeRecursive" />
     <e p="C:\Users\Sebig\.Rider2018.2\system\resharper-host\local\Transient\ReSharperHost\v182\SolutionCaches\_SkinHubApp.-42516651.00" t="ExcludeRecursive" />
     <e p="C:\Users\Sebig\source\repos\SkinHub\SkinHubApp" t="IncludeRecursive">
+      <e p=".vs" t="Include">
+        <e p="Config" t="Include">
+          <e p="applicationhost.config" t="Include" />
+        </e>
+        <e p="SkinHubApp" t="Include">
+          <e p="v15" t="Include">
+            <e p=".suo" t="Include" />
+            <e p="sqlite3" t="Include">
+              <e p="storage.ide" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
       <e p="appsettings.Development.json" t="Include" />
       <e p="appsettings.json" t="Include" />
       <e p="Bin" t="ExcludeRecursive" />
