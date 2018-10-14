@@ -10,8 +10,9 @@ namespace SkinHubApp.DTOs
         public string Body {get; set;}
 
         public int ProductListTypeID {get; set;}
-
-
+        
+        public string Author { get; set; }
+        
         public DateTime CreatedOn {get; set;} = DateTime.UtcNow;
 
 

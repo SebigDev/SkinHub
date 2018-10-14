@@ -22,6 +22,6 @@ namespace SkinHubApp.Services
 
         Task<bool> DeleteComment(long Id);
 
-        Task<bool> IsNameExist(string name, long id);
+       // Task<bool> IsNameExist(string name, long id);
     }
 }

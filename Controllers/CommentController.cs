@@ -41,18 +41,15 @@ namespace SkinHubApp.Controllers
         {
             try
             {
-                if(ModelState.IsValid)
-                {
-                    var checkName = await _CommentServices.IsNameExist(model.CommentBody, model.PostID);
-                    if(checkName == true)
-                    {
-                        return BadRequest("Sorry!, This name already exists on our database. Choose another name");
-                    }
+                if (!ModelState.IsValid) return BadRequest("Sorry! Your task cannot be completed");
+//                    var checkName = await _CommentServices.IsNameExist(model.CommentBody, model.PostID);
+//                    if(checkName == true)
+//                    {
+//                        return BadRequest("Sorry!, This name already exists on our database. Choose another name");
+//                    }
 
-                    var createComment = await _CommentServices.CreateComment(model);
-                    return StatusCode(201, $"Comment created Successfully.");
-                }
-                return BadRequest("Sorry! Your task cannot be completed");
+                await _CommentServices.CreateComment(model);
+                return StatusCode(201, $"Comment created Successfully.");
             }
             catch (Exception ex)
             {

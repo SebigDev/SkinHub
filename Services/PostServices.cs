@@ -36,7 +36,7 @@ namespace SkinHubApp.Services
                 Title = model.Title,
                 Body = model.Body,
                 CreatedOn = DateTime.UtcNow,
-                Author = "Anonymous",
+                Author = model.Author,
                 ProductListTypeID = model.ProductListTypeID
             };
             await _skinHubAppDbContext.AddAsync(createPost);
@@ -97,19 +97,21 @@ namespace SkinHubApp.Services
 
         public async Task<PostDto> GetPostById(long id)
         {
-           var post = await _skinHubAppDbContext.Post.Where(p => p.ID == id).FirstOrDefaultAsync();
+           var post = await _skinHubAppDbContext.Post.Include(x =>x.ProductListType).FirstOrDefaultAsync(x =>x.ID == id);
             if (post == null) return null;
-            var model = new PostDto
+            var newPostDto = new PostDto()
             {
-                ID = post.ID,
+                Author = post.Author,
                 Title = post.Title,
                 Body = post.Body,
                 CreatedOn = post.CreatedOn,
-                Author = post.Author,
+                ID = post.ID,
                 ProductListTypeID = post.ProductListTypeID,
-                ProductListType = post.ProductListType.Name, 
+                ProductListType = post.ProductListType.Name
             };
-            return model;
+            return newPostDto;
+
+
         }
 
         public async Task<IEnumerable<PostDto>> GetPostByProductListTypeId(int id)
@@ -132,13 +134,10 @@ namespace SkinHubApp.Services
         public async Task<long> UpdatePost(PostDto model)
         {
             var postToUpdate = await _skinHubAppDbContext.Post.FindAsync(model.ID);
-            if(postToUpdate != null)
-            {
-                 _skinHubAppDbContext.Entry(postToUpdate).State = EntityState.Modified;
-                 await _skinHubAppDbContext.SaveChangesAsync();
-                 return model.ID;
-            }
-            return 0;
+            if (postToUpdate == null) return 0;
+            _skinHubAppDbContext.Entry(postToUpdate).State = EntityState.Modified;
+            await _skinHubAppDbContext.SaveChangesAsync();
+            return model.ID;
         }
 
         #endregion

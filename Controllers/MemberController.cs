@@ -32,45 +32,45 @@ namespace SkinHubApp.Controllers
 /// </summary>
 /// <param name="registerDto"></param>
 /// <returns>Returns the member created </returns>
-        [HttpPost]
-        [Route("[action]")]
-        [Produces(typeof(MemberDto))]
-        [ProducesResponseType(201)]
-         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
-         {
-          registerDto.Username = registerDto.Username.ToLower();
-          try
-          {
-                if(!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
- 
-                if(await _authServices.MemberExists(registerDto.Username, registerDto.EmailAddress))
-                {
-                    return BadRequest("Username or Email Address exists, Choose anothe name");
-                }
-                var memberToCreate = new Member
-                {
-                    Username = registerDto.Username,
-                    EmailAddress = registerDto.EmailAddress,
-                    Color = registerDto.Color,
-                    Gender = registerDto.Gender,
-                    Firstname = registerDto.Firstname,
-                    Middlename = registerDto.Middlename,
-                    Lastname = registerDto.Lastname,
-                    DateOfBirth = registerDto.DateOfBirth,
+[HttpPost]
+[Route("[action]")]
+[Produces(typeof(MemberDto))]
+[ProducesResponseType(201)]
+ public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
+ {
+  registerDto.Username = registerDto.Username.ToLower();
+  try
+  {
+        if(!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
 
-                };
-                var createMember = await _authServices.Register(memberToCreate, registerDto.Password);
-                return StatusCode(201, $" Hello {registerDto.Username}, Your Registration was Successful.");
+        if(await _authServices.MemberExists(registerDto.Username, registerDto.EmailAddress))
+        {
+            return BadRequest("Username or Email Address exists, Choose another name");
+        }
+        var memberToCreate = new Member
+        {
+            Username = registerDto.Username,
+            EmailAddress = registerDto.EmailAddress,
+            Color = registerDto.Color,
+            Gender = registerDto.Gender,
+            Firstname = registerDto.Firstname,
+            Middlename = registerDto.Middlename,
+            Lastname = registerDto.Lastname,
+            DateOfBirth = registerDto.DateOfBirth,
 
-          }
-          catch (Exception ex)
-          {
-             return BadRequest($"{ex.Message}, Error!- Member cannot be created, Contact Administrator");
-          }
-      }
+        };
+        var createMember = await _authServices.Register(memberToCreate, registerDto.Password);
+        return StatusCode(201, $" Hello {registerDto.Username}, Your Registration was Successful.");
+
+  }
+  catch (Exception ex)
+  {
+     return BadRequest($"{ex.Message}, Error!- Member cannot be created, Contact Administrator");
+  }
+}
 
 
 /// <summary>
@@ -86,7 +86,7 @@ namespace SkinHubApp.Controllers
     {
         try
         {
-            var logMember = await _authServices.Login(loginDto.Username.ToLower(),loginDto.EmailAddress, loginDto.Password);
+            var logMember = await _authServices.Login(loginDto.Username.ToLower(), loginDto.EmailAddress, loginDto.Password);
             if(logMember == null)
             {
                 return Unauthorized();
@@ -96,7 +96,7 @@ namespace SkinHubApp.Controllers
             var key = Encoding.ASCII.GetBytes("Super Secret Key");
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-               Subject =  new System.Security.Claims.ClaimsIdentity(new Claim []
+               Subject =  new ClaimsIdentity(new List<Claim>()
                {
                    new Claim(ClaimTypes.NameIdentifier, logMember.ID.ToString()),
                    new Claim(ClaimTypes.Name, logMember.Username),
@@ -108,7 +108,7 @@ namespace SkinHubApp.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
-            return Ok( new {tokenString});
+            return Ok( new {tokenString, logMember.Username});
         }
         catch (Exception)
         {
@@ -209,10 +209,10 @@ namespace SkinHubApp.Controllers
     {
        try
        {
-            var MemberByMembername = await _authServices.GetMemberByColor(color);
-            if(MemberByMembername != null)
+            var memberByMembername = await _authServices.GetMemberByColor(color);
+            if(memberByMembername != null)
             {
-                return Ok(MemberByMembername);
+                return Ok(memberByMembername);
             }
             return NotFound($"Member with Color: {color} not found");
        }
